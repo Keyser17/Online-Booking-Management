@@ -170,8 +170,8 @@ function PageHome2() {
           categories={DEMO_CATS_2}
           categoryCardType="card4"
           itemPerRow={4}
-          heading="Suggestions for discovery"
-          subHeading="Popular places to stay that Chisfis recommends for you"
+          heading="Nos Destinations"
+          subHeading="Les lieux incontournables recommandés pour vous !"
         />
 
         <div className="relative py-16">

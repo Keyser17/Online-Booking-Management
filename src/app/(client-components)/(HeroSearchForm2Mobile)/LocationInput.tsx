@@ -15,7 +15,7 @@ const LocationInput: FC<Props> = ({
   onChange = () => {},
   className = "",
   defaultValue = "United States",
-  headingText = "Where to?",
+  headingText = "Où aller ?",
 }) => {
   const [value, setValue] = useState("");
   const containerRef = useRef(null);
@@ -25,11 +25,11 @@ const LocationInput: FC<Props> = ({
     setValue(defaultValue);
   }, [defaultValue]);
 
-  const handleSelectLocation = (item: string) => {
+  const handleSelectLocation = (item: { name: string; emoji?: string }) => {
     // DO NOT REMOVE SETTIMEOUT FUNC
     setTimeout(() => {
-      setValue(item);
-      onChange && onChange(item);
+      setValue(item.name);
+      onChange && onChange(item.name);
     }, 0);
   };
 
@@ -38,7 +38,7 @@ const LocationInput: FC<Props> = ({
     items,
   }: {
     heading: string;
-    items: string[];
+    items: { name: string; emoji?: string }[];
   }) => {
     return (
       <>
@@ -46,15 +46,18 @@ const LocationInput: FC<Props> = ({
           {heading || "Destinations"}
         </p>
         <div className="mt-3">
-          {items.map((item) => {
+          {items.map((item, index) => {
             return (
               <div
-                className="py-2 mb-1 flex items-center space-x-3 text-sm"
+                className="py-2 mb-1 flex items-center space-x-3 text-sm cursor-pointer"
                 onClick={() => handleSelectLocation(item)}
-                key={item}
+                key={index}
               >
                 <MapPinIcon className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
-                <span className="">{item}</span>
+                <span className="flex items-center">
+                  {item.emoji && <span className="mr-2">{item.emoji}</span>}
+                  {item.name}
+                </span>
               </div>
             );
           })}
@@ -86,21 +89,21 @@ const LocationInput: FC<Props> = ({
             ? renderSearchValues({
                 heading: "Locations",
                 items: [
-                  "Afghanistan",
-                  "Albania",
-                  "Algeria",
-                  "American Samao",
-                  "Andorra",
+                  { name: "Afghanistan", emoji: "🇦🇫" },
+                  { name: "Albania", emoji: "🇦🇱" },
+                  { name: "Algeria", emoji: "🇩🇿" },
+                  { name: "American Samoa", emoji: "🇦🇸" },
+                  { name: "Andorra", emoji: "🇦🇩" },
                 ],
               })
             : renderSearchValues({
                 heading: "Popular destinations",
                 items: [
-                  "Australia",
-                  "Canada",
-                  "Germany",
-                  "United Kingdom",
-                  "United Arab Emirates",
+                  { name: "Thailand", emoji: "🇹🇭" },
+                  { name: "Morocco", emoji: "🇲🇦" },
+                  { name: "Germany", emoji: "🇩🇪" },
+                  { name: "United Kingdom", emoji: "🇬🇧" },
+                  { name: "United Arab Emirates", emoji: "🇦🇪" },
                 ],
               })}
         </div>

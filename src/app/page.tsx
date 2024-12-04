@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import SectionHero from "@/app/(server-components)/SectionHero";
 import BgGlassmorphism from "@/components/BgGlassmorphism";
@@ -14,11 +16,13 @@ import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor";
 import SectionVideos from "@/components/SectionVideos";
 import SectionClientSay from "@/components/SectionClientSay";
 
+import _VideoHeader from "@/components/_VideoHeader";
+
 const DEMO_CATS: TaxonomyType[] = [
   {
     id: "1",
     href: "/listing-stay-map",
-    name: "New Yourk",
+    name: "Thaïland 🇹🇭",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -27,7 +31,7 @@ const DEMO_CATS: TaxonomyType[] = [
   {
     id: "2",
     href: "/listing-stay-map",
-    name: "Singapore",
+    name: "Maroc",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -36,7 +40,7 @@ const DEMO_CATS: TaxonomyType[] = [
   {
     id: "3",
     href: "/listing-stay-map",
-    name: "Paris",
+    name: "Phillipine",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -45,7 +49,7 @@ const DEMO_CATS: TaxonomyType[] = [
   {
     id: "4",
     href: "/listing-stay-map",
-    name: "London",
+    name: "Grece",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -54,7 +58,7 @@ const DEMO_CATS: TaxonomyType[] = [
   {
     id: "5",
     href: "/listing-stay-map",
-    name: "Tokyo",
+    name: "France",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -63,7 +67,7 @@ const DEMO_CATS: TaxonomyType[] = [
   {
     id: "6",
     href: "/listing-stay-map",
-    name: "Maldives",
+    name: "Mexique",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -72,7 +76,7 @@ const DEMO_CATS: TaxonomyType[] = [
   {
     id: "7",
     href: "/listing-stay-map",
-    name: "Italy",
+    name: "Portugal",
     taxonomy: "category",
     count: 188288,
     thumbnail:
@@ -147,11 +151,22 @@ const DEMO_CATS_2: TaxonomyType[] = [
 ];
 
 function PageHome() {
+
+  const handleButtonClick = () => {
+    console.log("Button clicked!"); // Action du bouton (naviguer, scroller, etc.)
+  };
+
   return (
     <main className="nc-PageHome relative overflow-hidden">
       {/* GLASSMOPHIN */}
       <BgGlassmorphism />
-
+      <_VideoHeader 
+        videoSrc="/Videos/Global_Travel_Video_Home.mp4"
+        title="Welcome to Our Platform"
+        subtitle="Discover amazing places and experiences"
+        buttonLabel="Get Started"
+        onButtonClick={handleButtonClick}
+      />
       <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
         {/* SECTION HERO */}
         <SectionHero className="pt-10 lg:pt-16 lg:pb-16" />

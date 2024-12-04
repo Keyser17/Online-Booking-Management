@@ -15,7 +15,7 @@ export interface WidgetFooterMenu {
 const widgetMenus: WidgetFooterMenu[] = [
   {
     id: "5",
-    title: "Getting started",
+    title: "Découvrer",
     menus: [
       { href: "#", label: "Installation" },
       { href: "#", label: "Release Notes" },
@@ -26,12 +26,12 @@ const widgetMenus: WidgetFooterMenu[] = [
   },
   {
     id: "1",
-    title: "Explore",
+    title: "Blog",
     menus: [
-      { href: "#", label: "Design features" },
-      { href: "#", label: "Prototyping" },
-      { href: "#", label: "Design systems" },
-      { href: "#", label: "Pricing" },
+      { href: "#", label: "Thaïland" },
+      { href: "#", label: "Grece" },
+      { href: "#", label: "Maroc" },
+      { href: "#", label: "Mexique" },
       { href: "#", label: "Security" },
     ],
   },

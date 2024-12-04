@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import imagePng from "@/images/hero-right.png";
+/* import imagePng from "@/images/hero-right.png"; */
+import imagePng from "@/images/hero-right-thai.png";
 import HeroSearchForm from "../(client-components)/(HeroSearchForm)/HeroSearchForm";
 import Image from "next/image";
 import ButtonPrimary from "@/shared/ButtonPrimary";
@@ -16,11 +17,10 @@ const SectionHero: FC<SectionHeroProps> = ({ className = "" }) => {
       <div className="flex flex-col lg:flex-row lg:items-center">
         <div className="flex-shrink-0 lg:w-1/2 flex flex-col items-start space-y-8 sm:space-y-10 pb-14 lg:pb-64 xl:pr-14 lg:mr-10 xl:mr-0">
           <h2 className="font-medium text-4xl md:text-5xl xl:text-7xl !leading-[114%] ">
-            Hotel, car & experiences
+          Explorez, le monde, autrement
           </h2>
           <span className="text-base md:text-lg text-neutral-500 dark:text-neutral-400">
-            Accompanying us, you have a trip full of experiences. With Chisfis,
-            booking accommodation, resort villas, hotels
+          Avec Globale Travel, découvrez des expériences inoubliables. Que ce soit pour des villas de luxe, des hôtels charmants ou des destinations uniques, nous simplifions vos réservations et faisons de chaque voyage une aventure mémorable. Relaxation, découverte ou aventure : votre séjour commence ici.
           </span>
           <ButtonPrimary href="/listing-stay-map" sizeClass="px-5 py-4 sm:px-7">
             Start your search
