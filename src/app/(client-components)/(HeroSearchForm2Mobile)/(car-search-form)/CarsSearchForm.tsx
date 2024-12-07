@@ -106,7 +106,7 @@ const CarsSearchForm = () => {
             className={`w-full flex justify-between text-sm font-medium p-4  `}
             onClick={() => setFieldNameShow("dates")}
           >
-            <span className="text-neutral-400">When</span>
+            <span className="text-neutral-400">Quand</span>
             <span>
               {startDate
                 ? converSelectedDateToString([startDate, endDate])

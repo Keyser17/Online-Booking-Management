@@ -9,7 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.pexels.com",
+        hostname: "images.pexels.com", 
         port: "",
         pathname: "/**",
       },
@@ -28,6 +28,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "www.gstatic.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.zenseanaresort.com",
         port: "",
         pathname: "/**",
       },

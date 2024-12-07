@@ -59,7 +59,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
   return (
     <div className={`flex flex-col relative p-5 ${className}`}>
       <span className="mb-5 block font-semibold text-xl sm:text-2xl">
-        {`Who's coming?`}
+        {`Qui vient avec vous ?`}
       </span>
       <NcInputNumber
         className="w-full"

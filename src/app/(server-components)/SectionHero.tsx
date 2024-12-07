@@ -23,7 +23,7 @@ const SectionHero: FC<SectionHeroProps> = ({ className = "" }) => {
           Avec Globale Travel, découvrez des expériences inoubliables. Que ce soit pour des villas de luxe, des hôtels charmants ou des destinations uniques, nous simplifions vos réservations et faisons de chaque voyage une aventure mémorable. Relaxation, découverte ou aventure : votre séjour commence ici.
           </span>
           <ButtonPrimary href="/listing-stay-map" sizeClass="px-5 py-4 sm:px-7">
-            Start your search
+            Commencez à Explorer 
           </ButtonPrimary>
         </div>
         <div className="flex-grow">

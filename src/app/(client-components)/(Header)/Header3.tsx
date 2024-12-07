@@ -125,7 +125,7 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
             }}
             className="block px-4 cursor-pointer font-normal py-3"
           >
-            Add guests
+            Ajouter des invités
           </span>
         </div>
 

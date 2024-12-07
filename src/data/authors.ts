@@ -1,6 +1,7 @@
 import __authors from "./jsons/__users.json";
 import { AuthorType } from "./types";
 import avatar1 from "@/images/avatars/Image-1.png";
+import avatar1_zenseana from "@/images/avatars_etablissements/Image_Zenseana.png";
 import avatar2 from "@/images/avatars/Image-2.png";
 import avatar3 from "@/images/avatars/Image-3.png";
 import avatar4 from "@/images/avatars/Image-4.png";
@@ -23,7 +24,7 @@ import avatar20 from "@/images/avatars/Image-20.png";
 import { Route } from "@/routers/types";
 
 const imgs = [
-  avatar1,
+  avatar1_zenseana,
   avatar2,
   avatar3,
   avatar4,

@@ -35,7 +35,7 @@ const HeroSearchForm2RealEstateMobile = () => {
           <span className="block font-medium text-sm">Où aller ?</span>
           <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 ">
             <span className="line-clamp-1">
-              Anywhere • Any week • Add guests
+            Partout • N'importe quelle semaine • Ajouter des invités
             </span>
           </span>
         </div>

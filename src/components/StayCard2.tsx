@@ -25,6 +25,7 @@ const StayCard2: FC<StayCard2Props> = ({
     galleryImgs,
     listingCategory,
     address,
+    description_preview,
     title,
     bedrooms,
     href,
@@ -93,6 +94,7 @@ const StayCard2: FC<StayCard2Props> = ({
               </svg>
             )}
             <span className="">{address}</span>
+            <span className="">{description_preview}</span>
           </div>
         </div>
         <div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>

@@ -183,8 +183,8 @@ const ListingExperiencesDetailPage: FC<
             radius="rounded-full"
           />
           <div>
-            <a className="block text-xl font-medium" href="##">
-              Kevin Francis
+            <a className="block text-xl font-medium" href="/etablissement/Zenseana_Resort">
+              Zenseana Resort & Spa - SHA Plus
             </a>
             <div className="mt-1.5 flex items-center text-sm text-neutral-500 dark:text-neutral-400">
               <StartRating />

@@ -2,6 +2,9 @@
 
 import { MapPinIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import React, { useState, useEffect, useRef, FC } from "react";
+import { EmojiProvider, Emoji } from "@/components/react-apple-emojis";
+import emojiData from "@/components/react-apple-emojis/data.json";
+import countriesWithEmojis from "@/data/countriesWithEmojis";
 
 interface Props {
   onClick?: () => void;
@@ -11,6 +14,7 @@ interface Props {
   headingText?: string;
 }
 
+
 const LocationInput: FC<Props> = ({
   onChange = () => {},
   className = "",
@@ -18,15 +22,14 @@ const LocationInput: FC<Props> = ({
   headingText = "Où aller ?",
 }) => {
   const [value, setValue] = useState("");
-  const containerRef = useRef(null);
-  const inputRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
 
-  const handleSelectLocation = (item: { name: string; emoji?: string }) => {
-    // DO NOT REMOVE SETTIMEOUT FUNC
+  const handleSelectLocation = (item: { name: string; emojiName?: string }) => {
     setTimeout(() => {
       setValue(item.name);
       onChange && onChange(item.name);
@@ -38,29 +41,29 @@ const LocationInput: FC<Props> = ({
     items,
   }: {
     heading: string;
-    items: { name: string; emoji?: string }[];
+    items: { name: string; emojiName?: string }[];
   }) => {
     return (
       <>
-        <p className="block font-semibold text-base">
-          {heading || "Destinations"}
-        </p>
+        <p className="block font-semibold text-base">{heading}</p>
         <div className="mt-3">
-          {items.map((item, index) => {
-            return (
-              <div
-                className="py-2 mb-1 flex items-center space-x-3 text-sm cursor-pointer"
-                onClick={() => handleSelectLocation(item)}
-                key={index}
-              >
-                <MapPinIcon className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
-                <span className="flex items-center">
-                  {item.emoji && <span className="mr-2">{item.emoji}</span>}
-                  {item.name}
-                </span>
-              </div>
-            );
-          })}
+          {items.map((item, index) => (
+            <div
+              className="py-2 mb-1 flex items-center space-x-3 text-sm cursor-pointer"
+              onClick={() => handleSelectLocation(item)}
+              key={index}
+            >
+              <MapPinIcon className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
+              <span className="flex items-center">
+                {item.emojiName && (
+                  <EmojiProvider data={emojiData}>
+                    <Emoji name={item.emojiName} width={16} className="mr-2" />
+                  </EmojiProvider>
+                )}
+                {item.name}
+              </span>
+            </div>
+          ))}
         </div>
       </>
     );
@@ -74,8 +77,8 @@ const LocationInput: FC<Props> = ({
         </span>
         <div className="relative mt-5">
           <input
-            className={`block w-full bg-transparent border px-4 py-3 pr-12 border-neutral-900 dark:border-neutral-200 rounded-xl focus:ring-0 focus:outline-none text-base leading-none placeholder-neutral-500 dark:placeholder-neutral-300 truncate font-bold placeholder:truncate`}
-            placeholder={"Search destinations"}
+            className="block w-full bg-transparent border px-4 py-3 pr-12 border-neutral-900 dark:border-neutral-200 rounded-xl focus:ring-0 focus:outline-none text-base leading-none placeholder-neutral-500 dark:placeholder-neutral-300 truncate font-bold placeholder:truncate"
+            placeholder={"Destinations"}
             value={value}
             onChange={(e) => setValue(e.currentTarget.value)}
             ref={inputRef}
@@ -85,27 +88,23 @@ const LocationInput: FC<Props> = ({
           </span>
         </div>
         <div className="mt-7">
-          {value
-            ? renderSearchValues({
-                heading: "Locations",
-                items: [
-                  { name: "Afghanistan", emoji: "🇦🇫" },
-                  { name: "Albania", emoji: "🇦🇱" },
-                  { name: "Algeria", emoji: "🇩🇿" },
-                  { name: "American Samoa", emoji: "🇦🇸" },
-                  { name: "Andorra", emoji: "🇦🇩" },
-                ],
-              })
-            : renderSearchValues({
-                heading: "Popular destinations",
-                items: [
-                  { name: "Thailand", emoji: "🇹🇭" },
-                  { name: "Morocco", emoji: "🇲🇦" },
-                  { name: "Germany", emoji: "🇩🇪" },
-                  { name: "United Kingdom", emoji: "🇬🇧" },
-                  { name: "United Arab Emirates", emoji: "🇦🇪" },
-                ],
-              })}
+          {value ? (
+            renderSearchValues({
+              heading: "All Countries",
+              items: countriesWithEmojis,
+            })
+          ) : (
+            renderSearchValues({
+              heading: "Destinations Populaires",
+              items: [
+                { name: "Thailand", emojiName: "flag-thailand" },
+                { name: "Morocco", emojiName: "flag-morocco" },
+                { name: "Germany", emojiName: "flag-germany" },
+                { name: "United Kingdom", emojiName: "flag-united-kingdom" },
+                { name: "United Arab Emirates", emojiName: "flag-united-arab-emirates" },
+              ],
+            })
+          )}
         </div>
       </div>
     </div>

@@ -118,8 +118,8 @@ const StaySearchForm = () => {
             className={`w-full flex justify-between text-sm font-medium p-4`}
             onClick={() => setFieldNameShow("guests")}
           >
-            <span className="text-neutral-400">Who</span>
-            <span>{guestSelected || `Add guests`}</span>
+            <span className="text-neutral-400">Qui</span>
+            <span>{guestSelected || `Ajouter des invités`}</span>
           </button>
         ) : (
           <GuestsInput defaultValue={guestInput} onChange={setGuestInput} />

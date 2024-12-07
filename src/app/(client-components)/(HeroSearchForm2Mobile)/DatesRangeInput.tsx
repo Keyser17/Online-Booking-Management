@@ -27,7 +27,7 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
     <div>
       <div className="p-5">
         <span className="block font-semibold text-xl sm:text-2xl">
-          {` When's your trip?`}
+          {` Quand est prévu votre voyage ?`}
         </span>
       </div>
       <div

@@ -4,6 +4,9 @@ import convertNumbThousand from "@/utils/convertNumbThousand";
 import Link from "next/link";
 import Image from "next/image";
 
+import { EmojiProvider, Emoji } from "@/components/react-apple-emojis";
+import emojiData from "@/components/react-apple-emojis/data.json";
+
 export interface CardCategory3Props {
   className?: string;
   taxonomy: TaxonomyType;
@@ -13,7 +16,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
   className = "",
   taxonomy,
 }) => {
-  const { count, name, href = "/", thumbnail } = taxonomy;
+  const { count, name, href = "/", thumbnail, emojiName } = taxonomy;
   return (
     <Link href={href} className={`nc-CardCategory3 flex flex-col ${className}`}>
       <div
@@ -32,7 +35,13 @@ const CardCategory3: FC<CardCategory3Props> = ({
         <h2
           className={`text-base sm:text-lg text-neutral-900 dark:text-neutral-100 font-medium truncate`}
         >
-          {name}
+          {name}{emojiName && (
+            <span className="">
+              <EmojiProvider data={emojiData}>
+                <Emoji name={emojiName} width={20} />
+              </EmojiProvider>
+            </span>
+          )}
         </h2>
         <span
           className={`block mt-1.5 text-sm text-neutral-6000 dark:text-neutral-400`}

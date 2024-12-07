@@ -70,7 +70,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
                   {totalGuests || ""} Guests
                 </span>
                 <span className="block mt-1 text-sm text-neutral-400 leading-none font-light">
-                  {totalGuests ? "Guests" : "Add guests"}
+                  {totalGuests ? "Invités" : "Ajouter des invités"}
                 </span>
               </div>
 
