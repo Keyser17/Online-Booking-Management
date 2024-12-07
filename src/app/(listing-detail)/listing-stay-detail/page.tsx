@@ -22,9 +22,28 @@ import GuestsInput from "./GuestsInput";
 import SectionDateRange from "../SectionDateRange";
 import { Route } from "next";
 
-export interface ListingStayDetailPageProps {}
 
-const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
+export interface ListingStayDetailPageProps {
+  hotelData: {
+    id: string;
+    name: string;
+    category: string;
+    rating: number;
+    location: string;
+    hostName: string;
+    hostAvatar: string;
+    guests: number;
+    beds: number;
+    baths: number;
+    bedrooms: number;
+  };
+}
+export interface renderSection1Props {
+  hotelId: string;
+}
+
+
+const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
   //
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
@@ -44,74 +63,79 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
     router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route);
   };
 
+  console.log(hotelData.rating);
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap !space-y-6">
-        {/* 1 */}
-        <div className="flex justify-between items-center">
-          <Badge name="Wooden house" />
-          <LikeSaveBtns />
-        </div>
+      {/* 1 */}
+      <div className="flex justify-between items-center">
+        <Badge name={hotelData.category} />
+        <LikeSaveBtns />
+      </div>
 
-        {/* 2 */}
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-          Beach House in Collingwood
-        </h2>
+      {/* 2 */}
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">{hotelData.name}</h2>
 
-        {/* 3 */}
-        <div className="flex items-center space-x-4">
-          <StartRating />
-          <span>·</span>
+      {/* 3 */}
+      <div className="flex items-center space-x-4">
+      
+      <StartRating point={hotelData.rating.value} reviewCount={hotelData.rating.count}/>
+        <span>·</span>
+        <span>
+          <i className="las la-map-marker-alt"></i>
+          <span className="ml-1">{hotelData.location}</span>
+        </span>
+      </div>
+
+      {/* 4 */}
+      <div className="flex items-center">
+        <Avatar
+          hasChecked
+          sizeClass="h-10 w-10"
+          radius="rounded-full"
+          src={hotelData.hostAvatar}
+        />
+        <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
+          Hosted by{" "}
+          <span className="text-neutral-900 dark:text-neutral-200 font-medium">
+          {hotelData.hostName}
+          </span>
+        </span>
+      </div>
+
+      {/* 5 */}
+      <div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
+
+      {/* 6 */}
+      <div className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
+        <div className="flex items-center space-x-3">
+          <i className="las la-user text-2xl"></i>
           <span>
-            <i className="las la-map-marker-alt"></i>
-            <span className="ml-1">Phuket, Thailand</span>
+          {hotelData.guests}{" "} <span className="hidden sm:inline-block">guests</span>
           </span>
         </div>
-
-        {/* 4 */}
-        <div className="flex items-center">
-          <Avatar hasChecked sizeClass="h-10 w-10" radius="rounded-full" />
-          <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
-            Hosted by{" "}
-            <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-              Zenseana Resort & Spa - SHA Plus
-            </span>
+        <div className="flex items-center space-x-3">
+          <i className="las la-bed text-2xl"></i>
+          <span>
+          {hotelData.beds} <span className="hidden sm:inline-block">beds</span>
           </span>
         </div>
-
-        {/* 5 */}
-        <div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
-
-        {/* 6 */}
-        <div className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
-          <div className="flex items-center space-x-3 ">
-            <i className=" las la-user text-2xl "></i>
-            <span className="">
-              6 <span className="hidden sm:inline-block">guests</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <i className=" las la-bed text-2xl"></i>
-            <span className=" ">
-              6 <span className="hidden sm:inline-block">beds</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <i className=" las la-bath text-2xl"></i>
-            <span className=" ">
-              3 <span className="hidden sm:inline-block">baths</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <i className=" las la-door-open text-2xl"></i>
-            <span className=" ">
-              2 <span className="hidden sm:inline-block">bedrooms</span>
-            </span>
-          </div>
+        <div className="flex items-center space-x-3">
+          <i className="las la-bath text-2xl"></i>
+          <span>
+          {hotelData.baths}{" "} <span className="hidden sm:inline-block">baths</span>
+          </span>
+        </div>
+        <div className="flex items-center space-x-3">
+          <i className="las la-door-open text-2xl"></i>
+          <span>
+          {hotelData.bedrooms}{" "} <span className="hidden sm:inline-block">bedrooms</span>
+          </span>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
   const renderSection2 = () => {
     return (

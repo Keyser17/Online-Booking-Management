@@ -106,10 +106,10 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
   return (
     <div className={`nc-SectionGridCategoryBox relative ${className}`}>
       <Heading
-        desc="Discover great places near where you live"
+        desc="Explorez en fonction de la durée de vol"
         isCenter={headingCenter}
       >
-        Explore nearby
+        Explorez les Vols
       </Heading>
       <div className={`grid ${gridClassName} gap-5 sm:gap-6 md:gap-8`}>
         {categories.map((item, i) => (
