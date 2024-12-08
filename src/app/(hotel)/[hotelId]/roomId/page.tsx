@@ -15,50 +15,16 @@ import ButtonClose from "@/shared/ButtonClose";
 import Input from "@/shared/Input";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Amenities_demos, PHOTOS } from "./constant";
-import StayDatesRangeInput from "./StayDatesRangeInput";
-import GuestsInput from "./GuestsInput";
-import SectionDateRange from "../SectionDateRange";
+import { usePathname, useRouter } from "next/navigation";
+import { Amenities_demos, PHOTOS } from "../../../(listing-detail)/listing-stay-detail/constant";
+import StayDatesRangeInput from "../../../(listing-detail)/listing-stay-detail/StayDatesRangeInput";
+import GuestsInput from "../../../(listing-detail)/listing-stay-detail/GuestsInput";
+import SectionDateRange from "../../../(listing-detail)/SectionDateRange";
 import { Route } from "next";
 
+export interface ListingStayDetailPageProps {}
 
-
-export interface ListingStayDetailPageProps {
-  hotelData: {
-    id: string;
-    name: string;
-    hostName: string;
-    category: string;
-    rating: {
-      value: number;
-      count: number;
-      bestRating: number;
-    };
-    location: string;
-    host: {
-      name: string;
-      avatar: string;
-      superHost: boolean;
-    };
-    features: {
-      guests: number;
-      beds: number;
-      baths: number;
-      bedrooms: number;
-    };
-    description: string;
-    gallery: {
-      general: { src: string; alt: string }[];
-    };
-  };
-}
-export interface renderSection1Props {
-  hotelId: string;
-}
-
-
-const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
+const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
   //
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
@@ -78,45 +44,22 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
     router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route);
   };
 
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  
- 
-/*   console.log("_________________________________________________________");
-  console.log("ListingStayDetailPage Props - hotelData");  
-  console.log(hotelData.name);
-  console.log(hotelData.rating);
-  console.log(hotelData.location);
-  console.log(hotelData.hostName);
-  console.log("_________________________________________________________");
- */
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap !space-y-6">
-      {/* 1 */}
-      <div className="flex justify-between items-center">
-        {/* <Badge name={hotelData.category || "Test" } /> */}
-        <Badge name="Wooden house" />
-        <LikeSaveBtns />
-      </div>
+        {/* 1 */}
+        <div className="flex justify-between items-center">
+          <Badge name="Wooden house" />
+          <LikeSaveBtns />
+        </div>
 
-      {/* 2 */}
-     {/*  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">{hotelData.name}</h2> */}
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+        {/* 2 */}
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
           Beach House in Collingwood
         </h2>
 
-      {/* 3 */}
-      {/* <div className="flex items-center space-x-4">
-      
-      <StartRating point={hotelData.rating.value} reviewCount={hotelData.rating.count}/>
-        <span>·</span>
-        <span>
-          <i className="las la-map-marker-alt"></i>
-          <span className="ml-1">{hotelData.location}</span>
-        </span>
-      </div> */}
-
-      <div className="flex items-center space-x-4">
+        {/* 3 */}
+        <div className="flex items-center space-x-4">
           <StartRating />
           <span>·</span>
           <span>
@@ -125,23 +68,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
           </span>
         </div>
 
-      {/* 4 */}
-      {/* <div className="flex items-center">
-        <Avatar
-          hasChecked
-          sizeClass="h-10 w-10"
-          radius="rounded-full"
-          
-        />
-        <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
-          Hosted by{" "}
-          <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-          {hotelData.hostName}
-          </span>
-        </span>
-      </div>
-       */}
-      <div className="flex items-center">
+        {/* 4 */}
+        <div className="flex items-center">
           <Avatar hasChecked sizeClass="h-10 w-10" radius="rounded-full" />
           <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
             Hosted by{" "}
@@ -151,41 +79,11 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
           </span>
         </div>
 
-      {/* 5 */}
-      <div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
+        {/* 5 */}
+        <div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
 
-      {/* 6 */}
-      {/* <div className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
-        <div className="flex items-center space-x-3">
-          <i className="las la-user text-2xl"></i>
-          <span className="">
-          {hotelData.features.guests}{" "} <span className="hidden sm:inline-block">guests</span>
-          </span>
-        </div>
-        <div className="flex items-center space-x-3">
-          <i className="las la-bed text-2xl"></i>
-          <span>
-          {hotelData.features.beds} <span className="hidden sm:inline-block">beds</span>
-          </span>
-        </div>
-        <div className="flex items-center space-x-3">
-          <i className="las la-bath text-2xl"></i>
-          <span>
-          {hotelData.features.baths}{" "} <span className="hidden sm:inline-block">baths</span>
-          </span>
-        </div>
-        <div className="flex items-center space-x-3">
-          <i className="las la-door-open text-2xl"></i>
-          <span>
-          {hotelData.features.bedrooms}{" "} <span className="hidden sm:inline-block">bedrooms</span>
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}; */}
-
-<div className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
+        {/* 6 */}
+        <div className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
           <div className="flex items-center space-x-3 ">
             <i className=" las la-user text-2xl "></i>
             <span className="">
@@ -218,11 +116,10 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
   const renderSection2 = () => {
     return (
       <div className="listingSection__wrap">
-        <h2 className="text-2xl font-semibold">Informations sur le séjour</h2>
+        <h2 className="text-2xl font-semibold">Stay information</h2>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         <div className="text-neutral-6000 dark:text-neutral-300">
           <span>
-          {/* {hotelData.description} */}
             Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
             accommodation, an outdoor swimming pool, a bar, a shared lounge, a
             garden and barbecue facilities. Complimentary WiFi is provided.
@@ -248,7 +145,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
     return (
       <div className="listingSection__wrap">
         <div>
-          <h2 className="text-2xl font-semibold">Equipements</h2>
+          <h2 className="text-2xl font-semibold">Amenities </h2>
           <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
             {` About the property's amenities and services`}
           </span>
@@ -485,7 +382,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
         {/* == */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         <div>
-          <ButtonSecondary href={"/author" as Route}>See host profile</ButtonSecondary>
+          <ButtonSecondary href="/author">See host profile</ButtonSecondary>
         </div>
       </div>
     );
@@ -653,7 +550,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
         </div>
 
         {/* SUBMIT */}
-        <ButtonPrimary href={"/checkout" as Route}>Reserve</ButtonPrimary>
+        <ButtonPrimary href={"/checkout"}>Reserve</ButtonPrimary>
       </div>
     );
   };
@@ -667,14 +564,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
             className="col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer"
             onClick={handleOpenModalImageGallery}
           >
-            {/* <Image
-              fill
-              className="object-cover rounded-md sm:rounded-xl"
-              src={hotelData.gallery.general[0]?.src || ""}
-              alt={hotelData.gallery.general[0]?.alt || "Main Gallery Image"}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-            /> */}
-
             <Image
               fill
               className="object-cover rounded-md sm:rounded-xl"
@@ -682,30 +571,9 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
               alt=""
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             />
-
             <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
           </div>
-          {/* {hotelData.gallery.general
-            .filter((_: any, i: number) => i >= 1 && i < 5) // Garder les images 1 à 4
-            .map((item: { src: string; alt: string }, index: number) => (
-              <div
-                key={index}
-                className={`relative rounded-md sm:rounded-xl overflow-hidden ${
-                  index >= 3 ? "hidden sm:block" : ""
-                }`}
-              >
-              {/* Conteneur d'image avec ratio */}
-             {/*  <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
-                <Image
-                  fill
-                  className="object-cover rounded-md sm:rounded-xl "
-                  src={item.src} // Utilisation de item.src
-                  alt={item.alt || "Gallery Image"} // Utilisation de item.alt
-                  sizes="400px"
-                />  */}
-
-
-              {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
+          {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
             <div
               key={index}
               className={`relative rounded-md sm:rounded-xl overflow-hidden ${
@@ -729,7 +597,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({hotelData}) => {
               />
             </div>
           ))}
-          
 
           <button
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10"

@@ -46,7 +46,10 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
         images={getImageGalleryListing()}
       />
 
-      <div className="container ListingDetailPage__content">{children}</div>
+      <div className="container ListingDetailPage__content">
+      <p>Test: children are here</p>
+      {children}
+      </div>
 
       {/* OTHER SECTION */}
       <div className="container py-24 lg:py-32">

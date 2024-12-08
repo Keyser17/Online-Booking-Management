@@ -1,3 +1,43 @@
+import { ListingGalleryImage } from "@/components/listing-image-gallery/utils/types";
+
+export const PHOTOS = [
+  "https://www.zenseanaresort.com/images/gallery/overview/1.jpg",
+  "https://www.zenseanaresort.com/images/gallery/overview/2.jpg",
+  "https://images.pexels.com/photos/6527036/pexels-photo-6527036.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  // Ajoute plus d'images si nécessaire
+];
+
+export const Amenities_demos = [
+  { name: "la-key", icon: "la-key" },
+  { name: "la-luggage-cart", icon: "la-luggage-cart" },
+  { name: "la-shower", icon: "la-shower" },
+  { name: "la-smoking", icon: "la-smoking" },
+  { name: "la-snowflake", icon: "la-snowflake" },
+  { name: "la-spa", icon: "la-spa" },
+  { name: "la-suitcase", icon: "la-suitcase" },
+  { name: "la-suitcase-rolling", icon: "la-suitcase-rolling" },
+  { name: "la-swimmer", icon: "la-swimmer" },
+  { name: "la-swimming-pool", icon: "la-swimming-pool" },
+  { name: "la-tv", icon: "la-tv" },
+  { name: "la-umbrella-beach", icon: "la-umbrella-beach" },
+  { name: "la-utensils", icon: "la-utensils" },
+  { name: "la-wheelchair", icon: "la-wheelchair" },
+  { name: "la-wifi", icon: "la-wifi" },
+  { name: "la-baby-carriage", icon: "la-baby-carriage" },
+  { name: "la-bath", icon: "la-bath" },
+  { name: "la-bed", icon: "la-bed" },
+  { name: "la-briefcase", icon: "la-briefcase" },
+  { name: "la-car", icon: "la-car" },
+  { name: "la-cocktail", icon: "la-cocktail" },
+  { name: "la-coffee", icon: "la-coffee" },
+  { name: "la-concierge-bell", icon: "la-concierge-bell" },
+  { name: "la-dice", icon: "la-dice" },
+  { name: "la-dumbbell", icon: "la-dumbbell" },
+  { name: "la-hot-tub", icon: "la-hot-tub" },
+  { name: "la-infinity", icon: "la-infinity" },
+];
+
+
 const hotels = [
   {
     id: "1",
@@ -50,17 +90,17 @@ const hotels = [
       baths: 3,
       bedrooms: 2,
     }, // Caractéristiques principales
-    gallery: [
-      {
-        src: "/path-to-image.jpg",
-        alt: "Main hotel view",
-      },
-      {
-        src: "/path-to-image2.jpg",
-        alt: "Pool area",
-      },
-      // Ajoute d'autres images ici
-    ], // Galerie d'images
+    gallery: {
+      general: [
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Secondary Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Secondary Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Secondary Image" },
+      ],
+    },
+    /* amenities: Amenities_demos.slice(0, 10) */
     reviews: [
       {
         id: "1",
