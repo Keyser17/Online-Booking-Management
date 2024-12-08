@@ -16,10 +16,10 @@ import Input from "@/shared/Input";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Amenities_demos, PHOTOS } from "../../../(listing-detail)/listing-stay-detail/constant";
-import StayDatesRangeInput from "../../../(listing-detail)/listing-stay-detail/StayDatesRangeInput";
-import GuestsInput from "../../../(listing-detail)/listing-stay-detail/GuestsInput";
-import SectionDateRange from "../../../(listing-detail)/SectionDateRange";
+import { Amenities_demos, PHOTOS } from "../../../../(listing-detail)/listing-stay-detail/constant";
+import StayDatesRangeInput from "../../../../(listing-detail)/listing-stay-detail/StayDatesRangeInput";
+import GuestsInput from "../../../../(listing-detail)/listing-stay-detail/GuestsInput";
+import SectionDateRange from "../../../../(listing-detail)/SectionDateRange";
 import { Route } from "next";
 
 export interface ListingStayDetailPageProps {}
