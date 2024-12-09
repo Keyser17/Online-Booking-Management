@@ -11,6 +11,7 @@ interface Address {
 interface Rating {
   value: number;
   count: number;
+  places: number;
   bestRating: number;
 }
 
@@ -61,6 +62,20 @@ interface Amenity {
   icon: string; // Classe d'icône associée
 }
 
+interface Hostinformation {
+  name: string;
+  avatar: string;
+  superHost: boolean;
+  responseRate: number; // Taux de réponse en pourcentage
+  joinedDate: string; // Date d'inscription
+  reviews: {
+    rating: number; // Note moyenne
+    count: number; // Nombre d'avis
+    places: number; // Nombre de lieux
+  };
+}
+
+
 interface Hotel {
   id: string;
   country: string;
@@ -90,6 +105,7 @@ interface Hotel {
   mapLink: string;
   url: string;
   rooms: Room[]; // Liste des chambres associées
+  hostinformation: Hostinformation;
 }
 
 // Exemple de données
@@ -106,6 +122,7 @@ const hotels: Hotel[] = [
       value: 7.8,
       count: 2552,
       bestRating: 10,
+      places: 12, // Nombre de lieux
     },
     price: {
       current: 50,
@@ -232,6 +249,18 @@ const hotels: Hotel[] = [
         ],
       },
     ],
+    hostinformation: {
+      name: "Kevin Francis",
+      avatar: "../../images/avatars_etablissements/Image_Zenseana.png",
+      superHost: true,
+      responseRate: 100, // Taux de réponse
+      joinedDate: "Mars 2001", // Date d'inscription
+      reviews: {
+        rating: 4.5, // Note moyenne
+        count: 112, // Nombre d'avis
+        places: 12, // Nombre de lieux
+      },
+    },
   },
 ];
 
