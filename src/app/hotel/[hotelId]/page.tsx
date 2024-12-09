@@ -15,6 +15,10 @@ import ButtonClose from "@/shared/ButtonClose";
 import Input from "@/shared/Input";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
 
+
+/* A modifer plsu tard  */
+import SectionDateRange from "../../(listing-detail)/SectionDateRange";
+
 import StayDatesRangeInput from "../../(listing-detail)/listing-stay-detail/StayDatesRangeInput";
 import GuestsInput from "../../(listing-detail)/listing-stay-detail/GuestsInput";
 
@@ -27,10 +31,30 @@ import { getHotelDataById } from "../data";
 
 
 const HotelPage = ({ params }: { params: { hotelId: string } }) => {
-  
+
+/*   console.log("_________________________________________________________");
+  console.log("ListingStayDetailPage Props - hotelData");  
+  console.log(hotelData.name);
+  console.log(hotelData.rating);
+  console.log(hotelData.location);
+  console.log(hotelData.hostName);
+  console.log("_________________________________________________________");
+ */
+
+
+  let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
   const thisPathname = usePathname();
   const router = useRouter();
   
+  
+  function closeModalAmenities() {
+    setIsOpenModalAmenities(false);
+  }
+
+  function openModalAmenities() {
+    setIsOpenModalAmenities(true);
+  }
+
   const handleOpenModalImageGallery = () => {
     router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route);
   };
@@ -40,6 +64,15 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
   if (!hotel) {
     return <div>Hotel not found</div>;
   }
+
+  const amenities = hotel?.amenities || [];
+
+
+  const pricePerNight = hotel.price.current; // Prix par nuit
+  const numberOfNights = 3; // Exemple: 3 nuits (à récupérer dynamiquement si besoin)
+  const serviceCharge = 10; // Frais de service (fixe ou calculé)
+  const totalPrice = pricePerNight * numberOfNights + serviceCharge; // Calcul du total
+
 
   const renderSection1 = () => {
     return (
@@ -54,31 +87,22 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
       {/* 2 */}
      {/*  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">{hotelData.name}</h2> */}
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-          Beach House in Collingwood
+          {hotel.name}
         </h2>
 
       {/* 3 */}
-      {/* <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4">
       
-      <StartRating point={hotelData.rating.value} reviewCount={hotelData.rating.count}/>
+      <StartRating point={hotel.rating.value} reviewCount={hotel.rating.count}/>
         <span>·</span>
         <span>
           <i className="las la-map-marker-alt"></i>
-          <span className="ml-1">{hotelData.location}</span>
+          <span className="ml-1">{hotel.location}</span>
         </span>
-      </div> */}
-
-      <div className="flex items-center space-x-4">
-          <StartRating />
-          <span>·</span>
-          <span>
-            <i className="las la-map-marker-alt"></i>
-            <span className="ml-1"> Tokyo, Jappan</span>
-          </span>
-        </div>
+      </div> 
 
       {/* 4 */}
-      {/* <div className="flex items-center">
+      <div className="flex items-center">
         <Avatar
           hasChecked
           sizeClass="h-10 w-10"
@@ -88,20 +112,12 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
         <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
           Hosted by{" "}
           <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-          {hotelData.hostName}
+          {hotel.name}
           </span>
         </span>
       </div>
-       */}
-      <div className="flex items-center">
-          <Avatar hasChecked sizeClass="h-10 w-10" radius="rounded-full" />
-          <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
-            Hosted by{" "}
-            <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-              Kevin Francis
-            </span>
-          </span>
-        </div>
+       
+    
 
       {/* 5 */}
       <div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
@@ -135,7 +151,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
       </div>
     </div>
   );
-}; */}
+}; 
 
 <div className="flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300">
           <div className="flex items-center space-x-3 ">
@@ -167,6 +183,235 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
     );
   };
 
+  const renderSidebar = () => {
+    return (
+      <div className="listingSectionSidebar__wrap shadow-xl">
+        {/* PRICE */}
+        <div className="flex justify-between">
+          <span className="text-3xl font-semibold">
+            {hotel.price.current}{hotel.price.sign}
+            <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
+              /night
+            </span>
+          </span>
+          <StartRating />
+        </div>
+
+        {/* FORM */}
+        <form className="flex flex-col border border-neutral-200 dark:border-neutral-700 rounded-3xl ">
+          <StayDatesRangeInput className="flex-1 z-[11]" />
+          <div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
+          <GuestsInput className="flex-1" />
+        </form>
+
+        {/* SUM */}
+        <div className="flex flex-col space-y-4">
+          <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+            <span>
+              {hotel.price.current} x {numberOfNights} night
+            </span>
+            <span>${pricePerNight * numberOfNights}</span>
+          </div>
+          <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+            <span>Service charge</span>
+            <span>${serviceCharge}</span>
+          </div>
+          <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
+          <div className="flex justify-between font-semibold">
+            <span>Total</span>
+            <span>${totalPrice}</span>
+          </div>
+        </div>
+
+        {/* SUBMIT */}
+        <ButtonPrimary href={"/checkout" as Route}>Reserve</ButtonPrimary>
+      </div>
+    );
+  };
+
+  const renderSection2 = () => {
+    return (
+      <div className="listingSection__wrap">
+        <h2 className="text-2xl font-semibold">Informations sur le séjour</h2>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        <div className="text-neutral-6000 dark:text-neutral-300">
+          <span>
+          {hotel.description}
+          </span>
+          <br />
+          <br />
+          <span>
+          {hotel.description}
+          </span>
+          <br /> <br />
+          <span>
+          {hotel.description}
+          </span>
+        </div>
+      </div>
+    );
+  };
+
+  const renderSection3 = (amenities: Amenity[] = []) => {
+    
+    return (
+      <div className="listingSection__wrap">
+        <div>
+          <h2 className="text-2xl font-semibold">Equipements</h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            {` About the property's amenities and services`}
+          </span>
+        </div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        {/* 6 */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 ">
+        {amenities.length > 0 ? (
+                    amenities.map((item) => (
+                      <div
+                        key={item.name}
+                        className="flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8"
+                      >
+                        <i
+                          className={`text-4xl text-neutral-6000 las ${item.icon}`}
+                        ></i>
+                        <span>{item.name}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-center text-neutral-500">
+                      No amenities available.
+                    </p>
+                  )}
+        </div>
+
+        {/* ----- */}
+        <div className="w-14 border-b border-neutral-200"></div>
+        <div>
+          <ButtonSecondary onClick={openModalAmenities}>
+            View more 20 amenities
+          </ButtonSecondary>
+        </div>
+        {renderMotalAmenities(hotel.amenities)}
+      </div>
+    );
+  };
+
+  const renderMotalAmenities = (amenities: Amenity[] = []) => {
+   // Assure que `amenities` est un tableau
+   console.log(amenities);
+    return (
+      <Transition appear show={isOpenModalAmenities} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-50 overflow-y-auto"
+          onClose={closeModalAmenities}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block py-8 h-screen w-full max-w-4xl">
+                <div className="inline-flex pb-2 flex-col w-full text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
+                  <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
+                    <h3
+                      className="text-lg font-medium leading-6 text-gray-900"
+                      id="headlessui-dialog-title-70"
+                    >
+                      Amenities
+                    </h3>
+                    <span className="absolute left-3 top-3">
+                      <ButtonClose onClick={closeModalAmenities} />
+                    </span>
+                  </div>
+                  <div className="px-8 overflow-auto text-neutral-700 dark:text-neutral-300 divide-y divide-neutral-200">
+                  {amenities.map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8"
+                    >
+                      <i className={`text-4xl text-neutral-6000 las ${item.icon}`}></i>
+                      <span>{item.name}</span>
+                    </div>
+                  ))}
+                  
+                  </div>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+    );
+  };
+
+  const renderSection4 = () => {
+    return (
+      <div className="listingSection__wrap">
+        {/* HEADING */}
+        <div>
+          <h2 className="text-2xl font-semibold">Room Rates </h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            Prices may increase on weekends or holidays
+          </span>
+        </div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        {/* CONTENT */}
+        <div className="flow-root">
+          <div className="text-sm sm:text-base text-neutral-6000 dark:text-neutral-300 -mb-4">
+            <div className="p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg">
+              <span>Monday - Thursday</span>
+              <span>$199</span>
+            </div>
+            <div className="p-4  flex justify-between items-center space-x-4 rounded-lg">
+              <span>Monday - Thursday</span>
+              <span>$199</span>
+            </div>
+            <div className="p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg">
+              <span>Friday - Sunday</span>
+              <span>$219</span>
+            </div>
+            <div className="p-4 flex justify-between items-center space-x-4 rounded-lg">
+              <span>Rent by month</span>
+              <span className="text-green-500">-8.34 %</span>
+            </div>
+            <div className="p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg">
+              <span>Minimum number of nights</span>
+              <span>1 night</span>
+            </div>
+            <div className="p-4 flex justify-between items-center space-x-4 rounded-lg">
+              <span>Max number of nights</span>
+              <span>90 nights</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
   const renderSidebar = () => {
     return (
       <div className="listingSectionSidebar__wrap shadow-xl">
@@ -223,7 +468,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
             <Image
               fill
               className="object-cover rounded-md sm:rounded-xl"
-              src={hotel.image}
+              src={PHOTOS[0]}
               alt=""
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             />
@@ -275,7 +520,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
             </div>
           ))}
           
-
+          <h1>{hotel.name}</h1>
           <button
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10"
             onClick={handleOpenModalImageGallery}
@@ -292,7 +537,10 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
           {/* CONTENT */}
         <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-10">
           {renderSection1()}
-
+          {renderSection2()}
+          {renderSection3(hotel.amenities)}
+          {renderSection4()}
+          <SectionDateRange />
 
         </div>
 

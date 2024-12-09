@@ -19,6 +19,7 @@ interface Price {
   old?: number;
   currency: string;
   per: string; // ex: "night"
+  sign?: string; // ex: "$"
 }
 
 interface Host {
@@ -55,6 +56,10 @@ interface Room {
   features: Features;
   gallery: Image[];
 }
+interface Amenity {
+  name: string; // Nom de l'équipement
+  icon: string; // Classe d'icône associée
+}
 
 interface Hotel {
   id: string;
@@ -74,7 +79,7 @@ interface Hotel {
     lng: number;
   };
   host: Host;
-  amenities: string[];
+  amenities: Amenity[];
   features: Features;
   gallery: {
     general: Image[];
@@ -103,9 +108,10 @@ const hotels: Hotel[] = [
       bestRating: 10,
     },
     price: {
-      current: 350,
+      current: 50,
+      sign: "€",
       currency: "USD",
-      per: "night",
+      per: "Nuit",
     },
     address: {
       postalCode: "83150",
@@ -122,10 +128,38 @@ const hotels: Hotel[] = [
     },
     host: {
       name: "Zenseana Resort & Spa - SHA Plus",
-      avatar: "/path-to-avatar.png",
+      avatar: "../../images/avatars_etablissements/Image_Zenseana.png",
       superHost: true,
     },
-    amenities: ["Free WiFi", "Outdoor pool", "Parking", "Air conditioning"],
+    amenities: [
+    { name: "la-key", icon: "la-key" },
+    { name: "la-luggage-cart", icon: "la-luggage-cart" },
+    { name: "la-shower", icon: "la-shower" },
+    { name: "la-smoking", icon: "la-smoking" },
+    { name: "la-snowflake", icon: "la-snowflake" },
+    { name: "la-spa", icon: "la-spa" },
+    { name: "la-suitcase", icon: "la-suitcase" },
+    { name: "la-suitcase-rolling", icon: "la-suitcase-rolling" },
+    { name: "la-swimmer", icon: "la-swimmer" },
+    { name: "la-swimming-pool", icon: "la-swimming-pool" },
+    { name: "la-tv", icon: "la-tv" },
+    { name: "la-umbrella-beach", icon: "la-umbrella-beach" },
+    { name: "la-utensils", icon: "la-utensils" },
+    { name: "la-wheelchair", icon: "la-wheelchair" },
+    { name: "la-wifi", icon: "la-wifi" },
+    { name: "la-baby-carriage", icon: "la-baby-carriage" },
+    { name: "la-bath", icon: "la-bath" },
+    { name: "la-bed", icon: "la-bed" },
+    { name: "la-briefcase", icon: "la-briefcase" },
+    { name: "la-car", icon: "la-car" },
+    { name: "la-cocktail", icon: "la-cocktail" },
+    { name: "la-coffee", icon: "la-coffee" },
+    { name: "la-concierge-bell", icon: "la-concierge-bell" },
+    { name: "la-dice", icon: "la-dice" },
+    { name: "la-dumbbell", icon: "la-dumbbell" },
+    { name: "la-hot-tub", icon: "la-hot-tub" },
+    { name: "la-infinity", icon: "la-infinity" },
+    ],
     features: {
       guests: 100,
       beds: 50,
