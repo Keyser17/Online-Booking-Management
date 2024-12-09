@@ -32,16 +32,9 @@ import { getHotelDataById } from "../data";
 
 const HotelPage = ({ params }: { params: { hotelId: string } }) => {
 
-/*   console.log("_________________________________________________________");
-  console.log("ListingStayDetailPage Props - hotelData");  
-  console.log(hotelData.name);
-  console.log(hotelData.rating);
-  console.log(hotelData.location);
-  console.log(hotelData.hostName);
-  console.log("_________________________________________________________");
- */
-
-
+  
+  
+  
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
   const thisPathname = usePathname();
   const router = useRouter();
@@ -66,14 +59,22 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
   }
 
   const amenities = hotel?.amenities || [];
-
-
+  const photos = hotel?.gallery || [];
+  const firstImageSrc = hotel?.gallery?.general?.[0]?.src || "default-image.jpg";
+  
   const pricePerNight = hotel.price.current; // Prix par nuit
   const numberOfNights = 3; // Exemple: 3 nuits (à récupérer dynamiquement si besoin)
   const serviceCharge = 10; // Frais de service (fixe ou calculé)
   const totalPrice = pricePerNight * numberOfNights + serviceCharge; // Calcul du total
-
-
+  
+  
+  console.log("_________________________________________________________");
+  console.log("ListingStayDetailPage Props - hotelData");  
+  console.log(hotel.name);
+  console.log(hotel.rating);
+  console.log(hotel.location);
+  console.log(hotel.description);
+  console.log("_________________________________________________________");
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap !space-y-6">
@@ -252,7 +253,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
     );
   };
 
-  const renderSection3 = (amenities: Amenity[] = []) => {
+  const renderSection3 = () => {
     
     return (
       <div className="listingSection__wrap">
@@ -266,7 +267,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
         {/* 6 */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 ">
         {amenities.length > 0 ? (
-                    amenities.map((item) => (
+                    amenities.filter((_, i) => i < 3).map((item) => (
                       <div
                         key={item.name}
                         className="flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8"
@@ -291,12 +292,12 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
             View more 20 amenities
           </ButtonSecondary>
         </div>
-        {renderMotalAmenities(hotel.amenities)}
+        {renderMotalAmenities()}
       </div>
     );
   };
 
-  const renderMotalAmenities = (amenities: Amenity[] = []) => {
+  const renderMotalAmenities = () => {
    // Assure que `amenities` est un tableau
    console.log(amenities);
     return (
@@ -468,7 +469,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
             <Image
               fill
               className="object-cover rounded-md sm:rounded-xl"
-              src={PHOTOS[0]}
+              src={firstImageSrc}
               alt=""
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             />
@@ -495,7 +496,9 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
                 />  */}
 
 
-            {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
+            {hotel.gallery.general
+            .filter((_, i) => i >= 1 && i < 5)
+            .map((item, index) => (
             <div
               key={index}
               className={`relative rounded-md sm:rounded-xl overflow-hidden ${
@@ -506,7 +509,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
                 <Image
                   fill
                   className="object-cover rounded-md sm:rounded-xl "
-                  src={item || ""}
+                  src={item.src || ""}
                   alt=""
                   sizes="400px"
                 />
@@ -520,7 +523,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
             </div>
           ))}
           
-          <h1>{hotel.name}</h1>
+          {/* <h1>{hotel.name}</h1> */}
           <button
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10"
             onClick={handleOpenModalImageGallery}
@@ -538,7 +541,7 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
         <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-10">
           {renderSection1()}
           {renderSection2()}
-          {renderSection3(hotel.amenities)}
+          {renderSection3()}
           {renderSection4()}
           <SectionDateRange />
 

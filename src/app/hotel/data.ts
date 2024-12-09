@@ -170,6 +170,12 @@ const hotels: Hotel[] = [
       general: [
         { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
         { src: "https://www.zenseanaresort.com/images/gallery/overview/2.jpg", alt: "Secondary Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/2.jpg", alt: "Secondary Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/2.jpg", alt: "Secondary Image" },
+        { src: "https://www.zenseanaresort.com/images/gallery/overview/1.jpg", alt: "Main Image" },
+        
       ],
     },
     reviews: [
