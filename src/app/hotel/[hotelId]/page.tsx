@@ -28,6 +28,12 @@ import { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getHotelDataById } from "../data";
 
+import { EmojiProvider, Emoji } from "@/components/react-apple-emojis";
+import emojiData from "@/components/react-apple-emojis/data.json";
+import countriesWithEmojis from "@/data/countriesWithEmojis";
+
+import Link from "next/link";
+import { HotelProvider, useHotel } from "./HotelContext";
 
 
 const HotelPage = ({ params }: { params: { hotelId: string } }) => {
@@ -82,9 +88,39 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
       <div className="flex justify-between items-center">
         {/* <Badge name={hotelData.category || "Test" } /> */}
         <div className="flex items-center space-x-4">
-          <Badge name={hotel.category} />
-          <Badge name={hotel.category} />
-          <Badge name={hotel.category} />
+          <Badge 
+            name={
+              <div className="flex items-center space-x-2">
+                <span>{hotel.category}</span>
+                <EmojiProvider data={emojiData}>
+                <Emoji name="hotel" width={16} className="mr-2" />
+                </EmojiProvider>
+            </div>
+            }
+            />
+
+          <Badge
+            name={
+              <div className="flex items-center space-x-2">
+                <span>{hotel.country}</span>
+                <EmojiProvider data={emojiData}>
+                <Emoji name="flag-thailand" width={16} className="mr-2" />
+                </EmojiProvider>
+              </div>
+            }
+            color="green"
+          />
+          <Badge 
+            name={
+              <div className="flex items-center space-x-2">
+                <span>Mer</span>
+                <EmojiProvider data={emojiData}>
+                <Emoji name="beach-with-umbrella" width={16} className="mr-2" />
+                </EmojiProvider> 
+              </div>
+            }
+            color="yellow"
+          />
         </div>
         <LikeSaveBtns />
       </div>
@@ -551,10 +587,17 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
 
         {/* == */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-        <div>
-          <ButtonSecondary href={"/author" as Route}>Voir le profile de l'{hotel.category}</ButtonSecondary>
+          {/* <{hotel.id && (
+          <ButtonSecondary href={`/author/${hotel.id}`} as={Route}>
+            Voir le profile de l'{hotel.category}
+          </ButtonSecondary>
+            )} */}
+            <Link href={`/author/${hotel.id}`} className="btn-secondary">
+              Voir le profile de l'{hotel.category}
+            </Link>
         </div>
-      </div>
+
+      
     );
   };
 

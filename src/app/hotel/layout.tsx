@@ -8,16 +8,26 @@ import SectionSubscribe2 from "@/components/SectionSubscribe2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { ReactNode } from "react";
 import MobileFooterSticky from "../(listing-detail)/(components)/MobileFooterSticky";
-import { imageGallery as listingStayImageGallery } from "../(listing-detail)/listing-stay-detail/constant";
+/* import { imageGallery as listingStayImageGallery } from "../(listing-detail)/listing-stay-detail/constant";*/
+/* Test pour rendre mes photos de data en gallery */
+import { imageGallery as listingStayImageGallery } from "./gestionPhotos";
 import { imageGallery as listingCarImageGallery } from "../(listing-detail)/listing-car-detail/constant";
 import { imageGallery as listingExperienceImageGallery } from "../(listing-detail)/listing-experiences-detail/constant"; 
 import { Route } from "next";
+import { getHotelDataById } from "@/app/hotel/data";
+
+
+
+
 
 const HotelLayout = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
     const thisPathname = usePathname();
     const searchParams = useSearchParams();
     const modal = searchParams?.get("modal");
+    
+    const hotel = getHotelDataById("1");
+
   
     const handleCloseModalImageGallery = () => {
       let params = new URLSearchParams(document.location.search);
@@ -26,7 +36,7 @@ const HotelLayout = ({ children }: { children: ReactNode }) => {
     };
   
     const getImageGalleryListing = () => {
-      if (thisPathname?.includes("/listing-stay-detail")) {
+      if (thisPathname?.includes("/hotel")) {
         return listingStayImageGallery;
       }
       if (thisPathname?.includes("/listing-car-detail")) {
@@ -38,7 +48,12 @@ const HotelLayout = ({ children }: { children: ReactNode }) => {
   
       return [];
     };
-  
+    
+    console.log("_____________________________________________________");
+    console.log("app/hotel/layout.tsx");
+    console.log("Hotel Data: ", hotel);
+    console.log("_____________________________________________________");
+
     return (
       <div className="ListingDetailPage">
         <ListingImageGallery
@@ -64,8 +79,13 @@ const HotelLayout = ({ children }: { children: ReactNode }) => {
           <SectionSubscribe2 className="pt-24 lg:pt-32" />
         </div>
   
-        {/* STICKY FOOTER MOBILE */}
-        <MobileFooterSticky />
+        {/* STICKY FOOTER MOBILE 
+            Mettre ce coposant fonctionnele dynamiquement
+             en rendant les donner depuis le children 
+        
+        */}
+        <MobileFooterSticky pricePerNight={hotel?.price.current  || 0}/>
+        
       </div>
     );
   };

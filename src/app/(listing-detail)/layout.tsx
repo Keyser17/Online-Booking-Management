@@ -38,6 +38,7 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
     return [];
   };
 
+  {console.log("Prix passé à MobileFooterSticky :", 200)}
   return (
     <div className="ListingDetailPage">
       <ListingImageGallery
@@ -67,7 +68,8 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
       </div>
 
       {/* STICKY FOOTER MOBILE */}
-      <MobileFooterSticky />
+      
+      <MobileFooterSticky  pricePerNight={200} />
     </div>
   );
 };

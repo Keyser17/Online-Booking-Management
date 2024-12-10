@@ -75,8 +75,16 @@ interface Hostinformation {
   };
 }
 
+interface HostReview {
+  name: string;
+  avatar?: string;
+  date: string;
+  comment: string;
+  starPoint: number;
+}
 
-interface Hotel {
+
+export interface Hotel {
   id: string;
   country: string;
   region: string;
@@ -106,6 +114,7 @@ interface Hotel {
   url: string;
   rooms: Room[]; // Liste des chambres associées
   hostinformation: Hostinformation;
+  hostreviews: HostReview[];
 }
 
 // Exemple de données
@@ -251,7 +260,7 @@ const hotels: Hotel[] = [
     ],
     hostinformation: {
       name: "Kevin Francis",
-      avatar: "../../images/avatars_etablissements/Image_Zenseana.png",
+      avatar: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/260150006.jpg?k=019c4643947bbb8bb41192d68ca9d1f1c954d37489f329681ec81fa1ac026675&o=",
       superHost: true,
       responseRate: 100, // Taux de réponse
       joinedDate: "Mars 2001", // Date d'inscription
@@ -260,7 +269,25 @@ const hotels: Hotel[] = [
         count: 112, // Nombre d'avis
         places: 12, // Nombre de lieux
       },
+
     },
+    hostreviews: [
+      {
+        name: "Cody Fisher",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        date: "May 20, 2021",
+        comment: "The host was incredibly helpful and friendly!",
+        starPoint: 5,
+      },
+      {
+        name: "Jane Cooper",
+        avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+        date: "June 15, 2021",
+        comment: "The accommodations were perfect for our needs.",
+        starPoint: 4,
+      },
+    ],
+    
   },
 ];
 

@@ -11,6 +11,7 @@ export interface AvatarProps {
   userName?: string;
   hasChecked?: boolean;
   hasCheckedClass?: string;
+  layout?: "intrinsic" | "fixed";
 }
 
 const Avatar: FC<AvatarProps> = ({
@@ -41,6 +42,7 @@ const Avatar: FC<AvatarProps> = ({
           className={`absolute inset-0 w-full h-full object-cover ${radius}`}
           src={url}
           alt={name}
+          fill
         />
       )}
       <span className="wil-avatar__name">{name[0]}</span>

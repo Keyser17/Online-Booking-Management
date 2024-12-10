@@ -16,9 +16,22 @@ import Avatar from "@/shared/Avatar";
 import ButtonSecondary from "@/shared/ButtonSecondary";
 import SocialsList from "@/shared/SocialsList";
 
+
+
+import { useParams } from "next/navigation";
+import { getHotelDataById } from "../../hotel/data"; // Importer la fonction depuis data.ts
+
+
+
 export interface AuthorPageProps {}
 
-const AuthorPage: FC<AuthorPageProps> = ({}) => {
+const AuthorPage: FC<AuthorPageProps> = () => {
+  const { id } = useParams(); // Récupérer l'ID depuis l'URL
+  const hotel = getHotelDataById(id); // Récupérer les données de l'hôtel associé
+
+  if (!hotel) {
+    return <div>L'hôtel ou l'hôte n'a pas été trouvé.</div>;
+  }
   let [categories] = useState(["Stays", "Experiences", "Car for rent"]);
 
   const renderSidebar = () => {
@@ -28,12 +41,13 @@ const AuthorPage: FC<AuthorPageProps> = ({}) => {
           hasChecked
           hasCheckedClass="w-6 h-6 -top-0.5 right-2"
           sizeClass="w-28 h-28"
+          imgUrl={hotel.hostinformation.avatar}
         />
 
         {/* ---- */}
         <div className="space-y-3 text-center flex flex-col items-center">
-          <h2 className="text-3xl font-semibold">Kevin Francis</h2>
-          <StartRating className="!text-base" />
+          <h2 className="text-3xl font-semibold">{hotel.name}</h2>
+          <StartRating  point={hotel.rating.value} reviewCount={hotel.rating.count} className="!text-base" />
         </div>
 
         {/* ---- */}
