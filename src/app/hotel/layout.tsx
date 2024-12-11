@@ -26,6 +26,16 @@ const HotelLayout = ({ children }: { children: ReactNode }) => {
     const searchParams = useSearchParams();
     const modal = searchParams?.get("modal");
     
+    // obtenir l/'id de l/'hotel
+    if (thisPathname?.includes("/hotel")) {
+      const hotelId = thisPathname?.split("/")[2]; // Récupère l/'id de l/'hotel dans l/'URL
+      // split permet de diviser une chaîne de caractères en un tableau de sous-chaînes
+      // [2] permet de récupérer le 3ème élément du tableau
+      // car les tableaux sont indexés à partir de 0
+      // 1 : hotel 2 : id de l/'hotel 3 : layout.tsx 
+      console.log("hotelId: ", hotelId);
+    }
+    // obtenir l/'id de l/'hotel
     const hotel = getHotelDataById("1");
 
   
@@ -50,9 +60,20 @@ const HotelLayout = ({ children }: { children: ReactNode }) => {
     };
     
     console.log("_____________________________________________________");
+    console.log("params: ",);
     console.log("app/hotel/layout.tsx");
     console.log("Hotel Data: ", hotel);
     console.log("_____________________________________________________");
+
+
+    console.log("_____________________________________________________");
+    console.log("app/hotel/layout.tsx Pour gerer app/hotel/gestionPhotos.ts");
+    console.log("thisPathname: ", thisPathname);
+    console.log("router: ", router);
+    // obtenir l/'id de l/'hotel 
+    console.log("hotel: ", hotel);
+    console.log("_____________________________________________________");
+    
 
     return (
       <div className="ListingDetailPage">

@@ -37,27 +37,63 @@ import { HotelProvider, useHotel } from "./HotelContext";
 
 
 const HotelPage = ({ params }: { params: { hotelId: string } }) => {
+// HotelPage permet de voir les détails d'un hotel en particulier
+// params.hotelId permet de récupérer l'identifiant de l'hotel
+// getHotelDataById permet de récupérer les données de l'hotel en fonction de l'identifiant
+// On récupère les données de l'hotel en fonction de l'identifiant
+// l'identifiant qui est passé en paramètre est de type string
+// params est un objet qui contient un seul attribut hotelId
+// avec ensuite servir à récupérer les données de l'hotel en
+// fonction de l'identifiant il est recuperer avec params.hotelId
+// sur l'url de la page de l'hotel en question 
+// params.hotelId est un paramètre de la page de l'hotel en question
 
-  
+console.log("_aaaa________________________________________________________");
+console.log("ListingStayDetailPage Props - params");
+console.log(params);
+console.log("Titre : ", params.hotelId);
+console.log("params.hotelId");
+console.log("_________________________________________________________");
+ 
   
   
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
-  const thisPathname = usePathname();
-  const router = useRouter();
+  // isOpenModalAmenities est un état qui permet de savoir
+  // isOpenModalAmenities vient de useState(false) qui permet de définir l'état initial de isOpenModalAmenities à false 
+  // si le modal des équipements est ouvert ou non 
+  // setIsOpenModalAmenities est une fonction qui permet de changer l'état de isOpenModalAmenities
+  // false signifie que le modal des équipements n'est pas ouvert
+  // true signifie que le modal des équipements est ouvert
+  // useState(false) permet de définir l'état initial de isOpenModalAmenities à false
+  const thisPathname = usePathname(); // Récupère le pathname actuel de l'URL  
+  const router = useRouter(); // Récupère les informations de routage de la page actuelle
+  // routage ? c'est le processus de détermination de la manière de répondre à une requête client
+  // à une URL particulière, qui est une chaîne de caractères qui identifie une ressource sur un réseau
+  //exemple /hotel/1 ou /hotel/2 ou /hotel/3 etc... 
+
+  // const params = useSearchParams(); // Récupère les paramètres de recherche de l'URL actuelle
   
   
+  // Fonction pour fermer le modal des équipements
   function closeModalAmenities() {
     setIsOpenModalAmenities(false);
   }
 
+  // Fonction pour ouvrir le modal des équipements
   function openModalAmenities() {
     setIsOpenModalAmenities(true);
   }
 
+  // Fonction pour ouvrir le modal de la galerie d'images
+  // handleOpenModalImageGallery est une fonction qui permet de rediriger l'utilisateur vers la page de la galerie d'images
+  // en fonction de l'URL actuelle 
   const handleOpenModalImageGallery = () => {
     router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route);
   };
   
+  // Récupère les données de l'hotel en fonction de l'identifiant
+  // getHotelDataById permet de récupérer les données de l'hotel en fonction de l'identifiant
+
   const hotel = getHotelDataById(params.hotelId);
   
   if (!hotel) {
@@ -339,7 +375,24 @@ const HotelPage = ({ params }: { params: { hotelId: string } }) => {
 
   const renderMotalAmenities = () => {
    // Assure que `amenities` est un tableau
-   console.log(amenities);
+   console.log(amenities[0]);
+   //  de 0 à 5 
+    // 0: {name: "Wifi", icon: "la-wifi"}
+    // 1: {name: "Parking", icon: "la-parking"}
+    //jusque 5 
+    console.log(amenities[5]); // echec 
+
+   // Assure que `amenities` est un tableau
+   // Documentation react 
+  /*  slice(0, 10).map // 
+  // amenities => { // 
+    console.log(amenities); // echec 
+  }); */ 
+
+  // Récupérer les 10 premiers éléments
+  const first10Elements = amenities.slice(0, 5);
+  console.log(first10Elements);
+
     return (
       <Transition appear show={isOpenModalAmenities} as={Fragment}>
         <Dialog
